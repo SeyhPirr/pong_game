@@ -1,7 +1,7 @@
-use piston_window::{ Context, G2d };
-use piston_window::types::Color;
 use crate::draw::draw_block;
-use rand::{ thread_rng, Rng };
+use piston_window::types::Color;
+use piston_window::{Context, G2d};
+use rand::{thread_rng, Rng};
 
 const BALL_COLOR: Color = [1.0, 0.0, 0.0, 1.0];
 pub struct Ball {

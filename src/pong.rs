@@ -1,6 +1,6 @@
-use std::collections::LinkedList;
-use piston_window::{ Context, G2d };
 use piston_window::types::Color;
+use piston_window::{Context, G2d};
+use std::collections::LinkedList;
 
 use crate::draw::draw_block;
 

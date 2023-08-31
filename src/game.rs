@@ -1,10 +1,10 @@
-use piston_window::*;
 use piston_window::types::Color;
-use rand::{ thread_rng, Rng };
+use piston_window::*;
+use rand::{thread_rng, Rng};
 
 use crate::ball::Ball;
-use crate::draw::{ draw_block, draw_rectangle };
-use crate::pong::{ Direction, Pong, Block };
+use crate::draw::{draw_block, draw_rectangle};
+use crate::pong::{Block, Direction, Pong};
 const BORDER_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
 const MOVING_PERIOD: f64 = 0.2;
 
