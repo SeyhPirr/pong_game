@@ -1,15 +1,9 @@
 use piston_window::types::Color;
 use piston_window::*;
+use pong_game::draw::to_coord_u32;
+use pong_game::game::Game;
 
-use crate::draw::to_coord_u32;
 const BACK_COLOR: Color = [0.5, 0.5, 0.5, 1.0];
-
-mod ball;
-mod draw;
-mod game;
-mod pong;
-
-use game::Game;
 
 fn main() {
     let (width, height) = (20, 20);
