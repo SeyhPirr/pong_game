@@ -1,7 +1,7 @@
 use piston_window::types::Color;
 use piston_window::*;
 
-use crate::ball::Ball;
+use crate::ball::{Ball, Coordinate};
 use crate::draw::draw_rectangle;
 use crate::pong::{Block, Direction, Pong};
 const BORDER_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
@@ -22,7 +22,7 @@ impl Game {
         Game {
             pong1: Pong::new(2, 2),
             pong2: Pong::new(15, 17),
-            ball: Ball::new(10, 10),
+            ball: Ball::new(Coordinate { x: 10, y: 10 }),
             width,
             height,
             waiting_time: 0.0,
@@ -116,11 +116,11 @@ impl Game {
         self.waiting_time += delta_time;
         if self.waiting_time > MOVING_PERIOD {
             if collision && place == 1 {
-                self.ball.vel_y = -self.ball.vel_y;
+                self.ball.velocity.y = -self.ball.velocity.y;
             }
 
             if collision && place == 2 {
-                self.ball.vel_x = -self.ball.vel_x;
+                self.ball.velocity.x = -self.ball.velocity.x;
             }
             self.ball.move_ball();
 
@@ -128,22 +128,20 @@ impl Game {
         }
     }
     fn check_collision(&self) -> (bool, i32) {
-        let ball_x = self.ball.ball_x;
-        let ball_y = self.ball.ball_y;
-        let ball_vel_x = self.ball.vel_x;
-        let ball_vel_y = self.ball.vel_y;
+        let coordinate = self.ball.coordinate;
+        let velocity = self.ball.velocity;
 
         for block in &self.pong1.body {
-            if ball_y + ball_vel_y == block.y && ball_x + ball_vel_x == block.x {
+            if coordinate.y + velocity.y == block.y && coordinate.x + velocity.x == block.x {
                 return (true, 1);
             }
         }
         for block in &self.pong2.body {
-            if ball_y + ball_vel_y == block.y && ball_x + ball_vel_x == block.x {
+            if coordinate.y + velocity.y == block.y && coordinate.x + velocity.x == block.x {
                 return (true, 1);
             }
         }
-        if ball_x + ball_vel_x >= 19 || ball_x + ball_vel_x <= 0 {
+        if coordinate.x + velocity.x >= 19 || coordinate.x + velocity.x <= 0 {
             return (true, 2);
         }
 
