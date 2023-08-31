@@ -1,7 +1,6 @@
 use crate::draw::draw_block;
 use piston_window::types::Color;
 use piston_window::{Context, G2d};
-use rand::{thread_rng, Rng};
 
 const BALL_COLOR: Color = [1.0, 0.0, 0.0, 1.0];
 
@@ -15,9 +14,8 @@ pub struct Ball {
 
 impl Ball {
     pub fn new(x: i32, y: i32) -> Ball {
-        let mut rng = thread_rng();
-        let mut vel_y = 1;
-        let mut vel_x = 1;
+        let vel_y = 1;
+        let vel_x = 1;
 
         Ball {
             ball_x: x,

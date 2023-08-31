@@ -1,9 +1,8 @@
 use piston_window::types::Color;
 use piston_window::*;
-use rand::{thread_rng, Rng};
 
 use crate::ball::Ball;
-use crate::draw::{draw_block, draw_rectangle};
+use crate::draw::draw_rectangle;
 use crate::pong::{Block, Direction, Pong};
 const BORDER_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
 const MOVING_PERIOD: f64 = 0.2;
@@ -78,9 +77,7 @@ impl Game {
                 self.pong1.body.push_back(new_block);
                 self.pong1.body.pop_front().unwrap();
             }
-            None => {
-                return;
-            }
+            None => (),
         }
     }
     fn update_pong2(&mut self, dir: Option<Direction>) {
@@ -110,9 +107,7 @@ impl Game {
                 self.pong2.body.push_back(new_block);
                 self.pong2.body.pop_front().unwrap();
             }
-            None => {
-                return;
-            }
+            None => (),
         }
     }
     pub fn update(&mut self, delta_time: f64) {
@@ -152,6 +147,6 @@ impl Game {
             return (true, 2);
         }
 
-        return (false, 3);
+        (false, 3)
     }
 }

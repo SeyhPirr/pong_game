@@ -1,5 +1,4 @@
 use piston_window::types::Color;
-use piston_window::Text;
 use piston_window::*;
 
 use crate::draw::to_coord_u32;
@@ -26,7 +25,7 @@ fn main() {
         if let Some(Button::Keyboard(key)) = event.press_args() {
             game.key_pressed(key);
         }
-        window.draw_2d(&event, |c, g, d| {
+        window.draw_2d(&event, |c, g, _d| {
             clear(BACK_COLOR, g);
             game.draw(&c, g);
         });
