@@ -5,15 +5,20 @@ use std::collections::LinkedList;
 use crate::draw::draw_block;
 
 const PONG_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
+
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Direction {
     Left,
     Right,
 }
+
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Block {
     pub x: i32,
     pub y: i32,
 }
 
+#[derive(Debug, Clone, PartialEq)]
 pub struct Pong {
     pub body: LinkedList<Block>,
 }

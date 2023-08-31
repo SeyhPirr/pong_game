@@ -4,6 +4,8 @@ use piston_window::{Context, G2d};
 use rand::{thread_rng, Rng};
 
 const BALL_COLOR: Color = [1.0, 0.0, 0.0, 1.0];
+
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Ball {
     pub ball_x: i32,
     pub ball_y: i32,

@@ -8,6 +8,7 @@ use crate::pong::{Block, Direction, Pong};
 const BORDER_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
 const MOVING_PERIOD: f64 = 0.2;
 
+#[derive(Debug, Clone, PartialEq)]
 pub struct Game {
     pong1: Pong,
     pong2: Pong,
