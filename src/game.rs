@@ -37,25 +37,20 @@ impl Game {
     }
 
     pub fn key_pressed(&mut self, key: Key) {
-        let dir_1 = match key {
-            Key::Right => Some(Direction::Right),
-            Key::Left => Some(Direction::Left),
-            _ => None,
+        match key {
+            Key::Right => self.update_pong1(Direction::Right),
+            Key::Left => self.update_pong1(Direction::Left),
+            Key::D => self.update_pong2(Direction::Right),
+            Key::A => self.update_pong2(Direction::Left),
+            _ => {}
         };
-        let dir_2 = match key {
-            Key::D => Some(Direction::Right),
-            Key::A => Some(Direction::Left),
-            _ => None,
-        };
-        self.update_pong1(dir_1);
-        self.update_pong2(dir_2);
     }
-    fn update_pong1(&mut self, dir: Option<Direction>) {
+    fn update_pong1(&mut self, dir: Direction) {
         let head = self.pong1.body.front().unwrap();
         let tail = self.pong1.body.back().unwrap();
 
         match dir {
-            Some(Direction::Right) => {
+            Direction::Right => {
                 if head.x >= 18 {
                     return;
                 }
@@ -66,7 +61,7 @@ impl Game {
                 self.pong1.body.push_front(new_block);
                 self.pong1.body.pop_back().unwrap();
             }
-            Some(Direction::Left) => {
+            Direction::Left => {
                 if tail.x <= 1 {
                     return;
                 }
@@ -77,15 +72,14 @@ impl Game {
                 self.pong1.body.push_back(new_block);
                 self.pong1.body.pop_front().unwrap();
             }
-            None => (),
         }
     }
-    fn update_pong2(&mut self, dir: Option<Direction>) {
+    fn update_pong2(&mut self, dir: Direction) {
         let head = self.pong2.body.front().unwrap();
         let tail = self.pong2.body.back().unwrap();
 
         match dir {
-            Some(Direction::Right) => {
+            Direction::Right => {
                 if head.x >= 18 {
                     return;
                 }
@@ -96,7 +90,7 @@ impl Game {
                 self.pong2.body.push_front(new_block);
                 self.pong2.body.pop_back().unwrap();
             }
-            Some(Direction::Left) => {
+            Direction::Left => {
                 if tail.x <= 1 {
                     return;
                 }
@@ -107,7 +101,6 @@ impl Game {
                 self.pong2.body.push_back(new_block);
                 self.pong2.body.pop_front().unwrap();
             }
-            None => (),
         }
     }
     pub fn update(&mut self, delta_time: f64) {
