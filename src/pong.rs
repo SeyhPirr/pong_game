@@ -25,11 +25,7 @@ pub struct Pong {
 
 impl Pong {
     pub fn new(x: i32, y: i32) -> Pong {
-        let mut body: LinkedList<Block> = LinkedList::new();
-        body.push_back(Block { x: x + 2, y });
-        body.push_back(Block { x: x + 1, y });
-        body.push_back(Block { x, y });
-
+        let body = LinkedList::from([Block { x: x + 2, y }, Block { x: x + 1, y }, Block { x, y }]);
         Pong { body }
     }
     pub fn draw(&self, con: &Context, g: &mut G2d) {
