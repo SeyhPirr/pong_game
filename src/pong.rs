@@ -37,4 +37,34 @@ impl Pong {
             draw_block(PONG_COLOR, block.x, block.y, con, g);
         }
     }
+
+    pub fn update_position(&mut self, dir: Direction) {
+        let head = self.body.front().unwrap();
+        let tail = self.body.back().unwrap();
+
+        match dir {
+            Direction::Right => {
+                if head.x >= 18 {
+                    return;
+                }
+                let new_block = Block {
+                    x: head.x + 1,
+                    y: head.y,
+                };
+                self.body.push_front(new_block);
+                self.body.pop_back().unwrap();
+            }
+            Direction::Left => {
+                if tail.x <= 1 {
+                    return;
+                }
+                let new_block = Block {
+                    x: tail.x - 1,
+                    y: tail.y,
+                };
+                self.body.push_back(new_block);
+                self.body.pop_front().unwrap();
+            }
+        }
+    }
 }

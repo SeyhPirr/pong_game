@@ -3,7 +3,7 @@ use piston_window::*;
 
 use crate::ball::{Ball, Coordinate};
 use crate::draw::draw_rectangle;
-use crate::pong::{Block, Direction, Pong};
+use crate::pong::{Direction, Pong};
 const BORDER_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
 const MOVING_PERIOD: f64 = 0.2;
 
@@ -38,71 +38,14 @@ impl Game {
 
     pub fn key_pressed(&mut self, key: Key) {
         match key {
-            Key::Right => self.update_pong1(Direction::Right),
-            Key::Left => self.update_pong1(Direction::Left),
-            Key::D => self.update_pong2(Direction::Right),
-            Key::A => self.update_pong2(Direction::Left),
+            Key::Right => self.pong1.update_position(Direction::Right),
+            Key::Left => self.pong1.update_position(Direction::Left),
+            Key::D => self.pong2.update_position(Direction::Right),
+            Key::A => self.pong2.update_position(Direction::Left),
             _ => {}
         };
     }
-    fn update_pong1(&mut self, dir: Direction) {
-        let head = self.pong1.body.front().unwrap();
-        let tail = self.pong1.body.back().unwrap();
 
-        match dir {
-            Direction::Right => {
-                if head.x >= 18 {
-                    return;
-                }
-                let new_block = Block {
-                    x: head.x + 1,
-                    y: head.y,
-                };
-                self.pong1.body.push_front(new_block);
-                self.pong1.body.pop_back().unwrap();
-            }
-            Direction::Left => {
-                if tail.x <= 1 {
-                    return;
-                }
-                let new_block = Block {
-                    x: tail.x - 1,
-                    y: tail.y,
-                };
-                self.pong1.body.push_back(new_block);
-                self.pong1.body.pop_front().unwrap();
-            }
-        }
-    }
-    fn update_pong2(&mut self, dir: Direction) {
-        let head = self.pong2.body.front().unwrap();
-        let tail = self.pong2.body.back().unwrap();
-
-        match dir {
-            Direction::Right => {
-                if head.x >= 18 {
-                    return;
-                }
-                let new_block = Block {
-                    x: head.x + 1,
-                    y: head.y,
-                };
-                self.pong2.body.push_front(new_block);
-                self.pong2.body.pop_back().unwrap();
-            }
-            Direction::Left => {
-                if tail.x <= 1 {
-                    return;
-                }
-                let new_block = Block {
-                    x: tail.x - 1,
-                    y: tail.y,
-                };
-                self.pong2.body.push_back(new_block);
-                self.pong2.body.pop_front().unwrap();
-            }
-        }
-    }
     pub fn update(&mut self, delta_time: f64) {
         let (collision, place) = self.check_collision();
 
