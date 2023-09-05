@@ -1,34 +1,41 @@
-use piston_window::{ Context, G2d };
-use piston_window::types::Color;
 use crate::draw::draw_block;
-use rand::{ thread_rng, Rng };
+use piston_window::types::Color;
+use piston_window::{Context, G2d};
 
 const BALL_COLOR: Color = [1.0, 0.0, 0.0, 1.0];
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Coordinate {
+    pub x: i32,
+    pub y: i32,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Velocity {
+    pub x: i32,
+    pub y: i32,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Ball {
-    pub ball_x: i32,
-    pub ball_y: i32,
-    pub vel_x: i32,
-    pub vel_y: i32,
+    pub coordinate: Coordinate,
+    pub velocity: Velocity,
 }
 
 impl Ball {
-    pub fn new(x: i32, y: i32) -> Ball {
-        let mut rng = thread_rng();
-        let mut vel_y = 1;
-        let mut vel_x = 1;
-
+    pub fn new(coordinate: Coordinate) -> Ball {
         Ball {
-            ball_x: x,
-            ball_y: y,
-            vel_x,
-            vel_y,
+            coordinate,
+            velocity: Velocity { x: 1, y: 1 },
         }
     }
     pub fn draw(&self, con: &Context, g: &mut G2d) {
-        draw_block(BALL_COLOR, self.ball_x, self.ball_y, con, g);
+        draw_block(BALL_COLOR, self.coordinate.x, self.coordinate.y, con, g);
     }
     pub fn move_ball(&mut self) {
-        self.ball_x += self.vel_x;
-        self.ball_y += self.vel_y;
+        self.coordinate = Coordinate {
+            x: self.coordinate.x + self.velocity.x,
+            y: self.coordinate.y + self.velocity.y,
+        }
     }
 }
